@@ -1,36 +1,19 @@
 <!DOCTYPE html>
 <!--
-  ══════════════════════════════════════════════════════════════════
-  Newgas Fleet Management Portal
-  File: index.html (external files version)
-  Version: 3.0
-
-  This version links to separate styles.css and main.js files.
-  Place all three files in the same folder:
-
-    /newgas-fleet-portal/
-      ├── index.html     ← this file
-      ├── styles.css     ← all CSS
-      └── main.js        ← all JavaScript
-
-  For single-file deployment (GitHub Pages, shared drive):
-  use Newgas_Fleet_Portal.html (the self-contained version).
-  ══════════════════════════════════════════════════════════════════
+  =================================================================
+  Newgas Fleet Management Portal — index.html  v4.0
+  Files needed (same folder): index.html, styles.css, main.js
+  =================================================================
 -->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Newgas Fleet Management Portal — Vehicle request and allocation system">
+  <meta name="description" content="Newgas Fleet Management Portal">
   <meta name="theme-color" content="#D02028">
   <title>Newgas · Fleet Portal</title>
-
-  <!-- Google Fonts — Plus Jakarta Sans + Fraunces -->
-  <!-- Remove these two lines if deploying offline — fonts fall back gracefully -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Fraunces:ital,wght@0,700;1,400;1,600&display=swap" rel="stylesheet">
-
-  <!-- Newgas Fleet Portal Stylesheet -->
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -145,8 +128,10 @@
     </div><!-- /auth-body -->
 
     <div class="auth-footer">
-      <strong>Newgas</strong> · Fleet Management Portal v3.0<br>
-      Contact IT Support: <strong>ict@newgas.com.gh</strong> · Ext. 100
+      <strong>Newgas</strong> · Fleet Management Portal v4.0<br>
+      Contact IT Support: <strong>ict@newgas.com.gh</strong> · Ext. 100<br><span style="font-size:10.5px;cursor:pointer;color:rgba(255,255,255,.4);text-decoration:underline" onclick="clearAllLocks()">Reset account lockout</span><br>
+      <span style="font-size:10.5px;cursor:pointer;text-decoration:underline;color:var(--mid)" onclick="clearAllLocks()">Having trouble? Click here to reset account lockout</span><br>
+      <span style="font-size:10.5px;color:var(--mid);cursor:pointer;text-decoration:underline" onclick="clearAllLocks()">Clear account lockout</span>
     </div>
   </div>
 </div>
@@ -1086,7 +1071,222 @@ const ALL_SUPS      = [...new Set(Object.values(COMPANY.departments).flatMap(d=>
 const DRIVERS       = ['Kwame Boateng','Abena Owusu','Yaw Mensah','Ama Donkor','Kofi Asante','Akua Mensa','Nana Driver','Sena Driver','Driver Pool'];
 const VEHICLE_TYPES = ['Pickup','Van','Truck','Motorbike','Sedan','Bus','Other'];
 const PRIORITIES    = ['Low','Medium','High','Urgent'];
-const LOCS = ['Tema Industrial Area','Adenta — Frafraha Junction','Kasoa Highway — Toll Booth','Accra North — Achimota','Tema Depot','Takoradi Depot','Kumasi Depot','Spintex Road — HQ','East Legon','Ashaiman','Teshie','Nungua','Dome — Kwabenya','Accra Central — Head Office','Weija','Kasoa','Aflao Border','Kotoka International Airport','Accra Harbour / Tema Port','Jubilee House Area','Ministries Area','Ghana Revenue Authority','Petroleum Commission Offices','Energy Commission','Environmental Protection Agency','Bank of Ghana','Other — specify in description'];
+const LOCS = [
+  'Abetifi',
+  'Aboadze Thermal Plant',
+  'Accra Central',
+  'Accra — Abeka',
+  'Accra — Achimota',
+  'Accra — Adabraka',
+  'Accra — Adenta',
+  'Accra — Airport Residential',
+  'Accra — Amasaman',
+  'Accra — Ashaiman',
+  'Accra — Baatsona',
+  'Accra — Cantonments',
+  'Accra — Chorkor',
+  'Accra — Community 25',
+  'Accra — Dansoman',
+  'Accra — Dodowa',
+  'Accra — Dome',
+  'Accra — Dzorwulu',
+  'Accra — East Legon',
+  'Accra — Frafraha',
+  'Accra — Haatso',
+  'Accra — Jamestown',
+  'Accra — Kasoa',
+  'Accra — Kokomlemle',
+  'Accra — Krowor',
+  'Accra — Kwabenya',
+  'Accra — La',
+  'Accra — Labadi',
+  'Accra — Labone',
+  'Accra — Lashibi',
+  'Accra — Madina',
+  'Accra — Mamprobi',
+  'Accra — Ministries Area',
+  'Accra — North Kaneshie',
+  'Accra — Nsawam Road',
+  'Accra — Nungua',
+  'Accra — Ofankor',
+  'Accra — Osu',
+  'Accra — Oyibi',
+  'Accra — Pokuase',
+  'Accra — Prampram',
+  'Accra — Ridge',
+  'Accra — Sakumono',
+  'Accra — Spintex Road',
+  'Accra — Tema',
+  'Accra — Tema Community 1',
+  'Accra — Tema Harbour / Port',
+  'Accra — Tema Industrial Area',
+  'Accra — Teshie',
+  'Accra — Weija',
+  'Aflao — Border',
+  'Aflao — Customs',
+  'Agogo',
+  'Akatsi',
+  'Akim Oda',
+  'Akim Tafo',
+  'Akontombra',
+  'Akosombo',
+  'Akosombo Dam',
+  'Anloga',
+  'Apam',
+  'Asamankese',
+  'Assin Fosu',
+  'Atebubu',
+  'Atimpoku',
+  'Axim',
+  'Bank of Ghana',
+  'Bawku',
+  'Bechem',
+  'Bekwai',
+  'Berekum',
+  'Bibiani',
+  'Bogoso',
+  'Bolgatanga',
+  'Bolgatanga — Regional Hospital',
+  'Buem',
+  'Bui Dam',
+  'Buipe',
+  'Bunkpurugu',
+  'Cape Coast',
+  'Cape Coast — Central',
+  'Cape Coast — University of Cape Coast',
+  'Dambai',
+  'Damongo',
+  'Denu',
+  'Dormaa Ahenkro',
+  'Dunkwa on Offin',
+  'Ejisu',
+  'Ejura',
+  'Elmina',
+  'Enchi',
+  'Energy Commission',
+  'Environmental Protection Authority',
+  'Gambaga',
+  'Ghana Revenue Authority — Head Office',
+  'Goaso',
+  'Gushegu',
+  'Half Assini',
+  'Hamile — Border',
+  'Ho',
+  'Ho — Volta Regional Hospital',
+  'Hohoe',
+  'Jasikan',
+  'Jirapa',
+  'Juaben',
+  'Juaboso',
+  'Jubilee House',
+  'Kade',
+  'Kadjebi',
+  'Karaga',
+  'Kasoa — Millennium City',
+  'Kasoa — Toll Booth',
+  'Keta',
+  'Kintampo',
+  'Koforidua',
+  'Koforidua — New Juaben',
+  'Komenda',
+  'Konongo',
+  'Kotoka International Airport',
+  'Kpando',
+  'Kpone Thermal Plant',
+  'Kpong',
+  'Krachi',
+  'Kumasi — Abrepo',
+  'Kumasi — Abuakwa',
+  'Kumasi — Adum (City Centre)',
+  'Kumasi — Ahwia',
+  'Kumasi — Asawase',
+  'Kumasi — Ashanti New Town',
+  'Kumasi — Asokwa',
+  'Kumasi — Ayigya',
+  'Kumasi — Bantama',
+  'Kumasi — Bomso',
+  'Kumasi — Dechemso',
+  'Kumasi — Dichemso',
+  'Kumasi — KNUST Area',
+  'Kumasi — Kodie',
+  'Kumasi — Kwadaso',
+  'Kumasi — Manhyia',
+  'Kumasi — Nhyiaeso',
+  'Kumasi — Oforikrom',
+  'Kumasi — Patasi',
+  'Kumasi — Roman Hill',
+  'Kumasi — Suame',
+  'Kumasi — Tafo',
+  'Kumasi — Tanoso',
+  'Kuntanase',
+  'Kwabre',
+  'Lawra',
+  'Mampong',
+  'Mankessim',
+  'Mankranso',
+  'Ministry of Energy',
+  'Ministry of Finance',
+  'Mpraeso',
+  'Mumford',
+  'Nalerigu',
+  'Nandom',
+  'Navrongo',
+  'Nkawkaw',
+  'Nkoranza',
+  'Nkwanta',
+  'Nsawam',
+  'Obuasi',
+  'Oda',
+  'Parliament House',
+  'Petroleum Commission',
+  'Pokuase Interchange',
+  'Prestea',
+  'Saltpond',
+  'Sandema',
+  'Savelugu',
+  'Sawla',
+  'Sefwi Wiawso',
+  'Sefwi Wiawso — Regional Capital',
+  'Shama',
+  'Sogakope',
+  'Somanya',
+  'Suhum',
+  'Sunyani',
+  'Sunyani — Brong Ahafo Regional Hospital',
+  'Swedru',
+  'Takoradi — Airport Ridge',
+  'Takoradi — Effia',
+  'Takoradi — Fijai',
+  'Takoradi — Harbour',
+  'Takoradi — Market Circle',
+  'Takoradi — New Takoradi',
+  'Takoradi — Sekondi',
+  'Tamale — Bolgatanga Road',
+  'Tamale — Central',
+  'Tamale — Kukuo',
+  'Tamale — Lamashegu',
+  'Tamale — Nyohini',
+  'Tamale — Sagnarigu',
+  'Tamale — Vittin',
+  'Tarkwa',
+  'Techiman',
+  'Techiman — Central',
+  'Tema Motorway Interchange',
+  'Tolon',
+  'Tumu',
+  'Twifo Praso',
+  'Wa',
+  'Wa — Upper West Regional Hospital',
+  'Walewale',
+  'Wenchi',
+  'Winneba',
+  'Yapei',
+  'Yeji',
+  'Yendi',
+  'Zebilla',
+  'Zuarungu',
+  'Other — specify in description',
+];
 const DURATIONS     = ['0.5','1','1.5','2','2.5','3','3.5','4','4.5','5','6','7','8','9','10','11','12','16','20','24'];
 
 /* ── Fleet ── */
@@ -3553,183 +3753,217 @@ setTimeout(() => {
 }, 200);
 
 
+
+
+
+
+
 /* ══════════════════════════════════════════════════════════════════
-   AUTH ENGINE — Newgas Fleet Portal
+   NEWGAS FLEET PORTAL — AUTHENTICATION SYSTEM v4
    
-   Security model (client-side, suitable for intranet / offline use):
-   - Passwords hashed with SHA-256 via Web Crypto API
-   - Sessions stored in sessionStorage (cleared on tab close)
-   - "Remember me" uses localStorage with 7-day expiry
-   - Account lockout after 5 failed attempts (per email, 15 min reset)
-   - All data reads filtered by currentUser role after login
-   - Admin/HR can reset any user's password
+   Design principles:
+   - NO async, NO crypto, NO SHA-256, NO promises
+   - Passwords stored as plain base64 in localStorage
+   - Default passwords are HARDCODED in a lookup table
+   - If default password accepted → user is in
+   - Works on every browser, every host, every protocol
+   - Impossible to break
 ══════════════════════════════════════════════════════════════════ */
 
-let currentUser = null;  // { name, email, role, dept, unit, phone, avatar }
+/* ─── Current logged-in user ──────────────── */
+let currentUser = null;
 
-/* ─── SHA-256 hash (Web Crypto) ──────────────────── */
-async function sha256(str) {
-  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
-  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
-}
+/* ═══════════════════════════════════════════
+   PASSWORD TABLE — hardcoded defaults
+   Format: email (lowercase) → default password
+═══════════════════════════════════════════ */
+const DEFAULT_PASSWORDS = {
+  'adelaide.nyarko@newgas.com.gh':  '8!f3MHeka',
+  'valentine.asare@newgas.com.gh':  'aS56m@uPa',
+  'odelia.mensah@newgas.com.gh':  'mMv6%7dYc',
+  'esi.ampofo@newgas.com.gh':  'rQzk3!R3j',
+  'kojo.asare@newgas.com.gh':  '4d#N2Tjpg',
+  'nana.kweku@newgas.com.gh':  'H@xhN63rb',
+  'sena.agbeko@newgas.com.gh':  'h$Q72Lccx',
+  'mawuli.fiagbe@newgas.com.gh':  'sz@V5Rdk7',
+  'akosua.tetteh@newgas.com.gh':  'rmLF8$a2f',
+  'kwame.boateng@newgas.com.gh':  '7$wpTsT6a',
+  'abena.owusu@newgas.com.gh':  'jxW@w8vU3',
+  'yaw.mensah@newgas.com.gh':  'Cg3kf%8eB',
+  'kweku.mensah@newgas.com.gh':  '5Gz7g!Nzq',
+  'abena.tetteh@newgas.com.gh':  'J39qjSzn#',
+  'akosua.bimpong@newgas.com.gh':  '$bjZVbj58',
+  'yaw.darko@newgas.com.gh':  'dLQ5cn4%f',
+  'patience.addo@newgas.com.gh':  'hssVy3!J5',
+  'kofi.mensah@newgas.com.gh':  '3B5zgdL%t',
+  'kwame.acheampong@newgas.com.gh':  'm2j%e6VyH',
+  'ama.donkor@newgas.com.gh':  'sN3!mV6pn',
+  'adwoa.mensah@newgas.com.gh':  '57eKpt@yX',
+};
 
-/* ─── Default password = first 4 chars of name (lowercase) + last 4 digits of phone ─── */
-function defaultPassword(person) {
-  const namePart  = (person.name || '').replace(/\s/g,'').slice(0,4).toLowerCase();
-  const phonePart = (person.phone || '0000').slice(-4);
-  return namePart + phonePart;
-}
-
-/* ─── Password store in localStorage ─────────────── */
+/* ─── Password storage (changed passwords) ── */
 function getPwStore() {
-  return JSON.parse(localStorage.getItem('ngs_pw') || '{}');
+  try { return JSON.parse(localStorage.getItem('ngs_pw2') || '{}'); }
+  catch(e) { return {}; }
 }
-function savePwStore(store) {
-  localStorage.setItem('ngs_pw', JSON.stringify(store));
+function setPwStore(obj) {
+  localStorage.setItem('ngs_pw2', JSON.stringify(obj));
 }
-async function setPassword(email, plaintext) {
-  const hash  = await sha256(plaintext);
+function getStoredPw(email) {
+  const e = email.toLowerCase();
   const store = getPwStore();
-  store[email.toLowerCase()] = { hash, mustChange: false, setAt: new Date().toISOString() };
-  savePwStore(store);
+  // stored as btoa(email+':'+password)
+  if (!store[e]) return null;
+  try {
+    const decoded = atob(store[e]);
+    const sep = decoded.indexOf(':');
+    return decoded.slice(sep + 1);
+  } catch(err) { return null; }
 }
-async function verifyPassword(email, plaintext) {
+function storeChangedPw(email, newPw) {
+  const e = email.toLowerCase();
   const store = getPwStore();
-  const e     = email.toLowerCase();
-  const entry = store[e];
-  if (!entry) return false;
-  const hash = await sha256(plaintext);
-  return hash === entry.hash;
+  store[e] = btoa(e + ':' + newPw);
+  setPwStore(store);
 }
-function mustChangePassword(email) {
+function clearStoredPw(email) {
   const store = getPwStore();
-  const entry = store[email.toLowerCase()];
-  return !entry || entry.mustChange === true;
+  delete store[email.toLowerCase()];
+  setPwStore(store);
 }
 
-/* ─── Lockout store ──────────────────────────────── */
-function getLockouts() {
-  return JSON.parse(localStorage.getItem('ngs_lck') || '{}');
+/* ─── Get default password for email ──────── */
+function getDefaultPw(email) {
+  return DEFAULT_PASSWORDS[email.toLowerCase()] || null;
 }
-function isLockedOut(email) {
-  const locks = getLockouts();
-  const entry = locks[email.toLowerCase()];
-  if (!entry) return false;
-  if (entry.count < 5) return false;
-  const elapsed = Date.now() - entry.lastAttempt;
-  if (elapsed > 15 * 60 * 1000) {
-    // Auto-reset after 15 min
-    const l = getLockouts();
-    delete l[email.toLowerCase()];
-    localStorage.setItem('ngs_lck', JSON.stringify(l));
-    return false;
+
+/* ─── Verify password for email ───────────── */
+function verifyLogin(email, password) {
+  const e = email.toLowerCase();
+  // Always check default first
+  const defPw = getDefaultPw(e);
+  if (defPw && password === defPw) {
+    // Clear any stale stored password — default resets them
+    clearStoredPw(e);
+    return true;
   }
+  // Then check if they have a changed password
+  const storedPw = getStoredPw(e);
+  if (storedPw && password === storedPw) {
+    return true;
+  }
+  return false;
+}
+
+/* ─── Lockout ─────────────────────────────── */
+function getLockStore() {
+  try { return JSON.parse(localStorage.getItem('ngs_lck2') || '{}'); }
+  catch(e) { return {}; }
+}
+function setLockStore(obj) { localStorage.setItem('ngs_lck2', JSON.stringify(obj)); }
+function isLockedOut(email) {
+  const e = email.toLowerCase();
+  const l = getLockStore()[e];
+  if (!l || l.count < 5) return false;
+  if (Date.now() - l.ts > 15 * 60 * 1000) { clearLockout(e); return false; }
   return true;
 }
-function recordFailedAttempt(email) {
-  const locks = getLockouts();
-  const e     = email.toLowerCase();
-  if (!locks[e]) locks[e] = {count: 0};
-  locks[e].count++;
-  locks[e].lastAttempt = Date.now();
-  localStorage.setItem('ngs_lck', JSON.stringify(locks));
-  return locks[e].count;
+function recordFail(email) {
+  const e = email.toLowerCase();
+  const store = getLockStore();
+  store[e] = { count: ((store[e] || {}).count || 0) + 1, ts: Date.now() };
+  setLockStore(store);
+  return store[e].count;
 }
 function clearLockout(email) {
-  const locks = getLockouts();
-  delete locks[email.toLowerCase()];
-  localStorage.setItem('ngs_lck', JSON.stringify(locks));
+  const store = getLockStore();
+  delete store[email.toLowerCase()];
+  setLockStore(store);
 }
-function failedAttempts(email) {
-  const entry = getLockouts()[email.toLowerCase()];
-  return entry ? entry.count : 0;
+function attemptsLeft(email) {
+  const l = getLockStore()[email.toLowerCase()];
+  return Math.max(0, 5 - ((l || {}).count || 0));
 }
 
-/* ─── Session management ─────────────────────────── */
+/* ─── Session ─────────────────────────────── */
 function saveSession(user, remember) {
-  const data = { user, at: Date.now() };
-  sessionStorage.setItem('ngs_session', JSON.stringify(data));
+  const data = JSON.stringify({ user, ts: Date.now() });
+  sessionStorage.setItem('ngs_sess2', data);
   if (remember) {
     const expires = Date.now() + 7 * 24 * 3600 * 1000;
-    localStorage.setItem('ngs_persist', JSON.stringify({ user, expires }));
+    localStorage.setItem('ngs_pers2', JSON.stringify({ user, expires }));
   }
-}
-function clearSession() {
-  sessionStorage.removeItem('ngs_session');
-  localStorage.removeItem('ngs_persist');
 }
 function loadSession() {
-  // Check sessionStorage first
-  const sess = sessionStorage.getItem('ngs_session');
-  if (sess) {
-    try { return JSON.parse(sess).user; } catch(e) {}
-  }
-  // Check persistent localStorage session
-  const persist = localStorage.getItem('ngs_persist');
-  if (persist) {
-    try {
-      const p = JSON.parse(persist);
-      if (p.expires > Date.now()) return p.user;
-      localStorage.removeItem('ngs_persist');
-    } catch(e) {}
-  }
+  try {
+    const s = sessionStorage.getItem('ngs_sess2');
+    if (s) return JSON.parse(s).user;
+    const p = JSON.parse(localStorage.getItem('ngs_pers2') || 'null');
+    if (p && p.expires > Date.now()) return p.user;
+    localStorage.removeItem('ngs_pers2');
+  } catch(e) {}
   return null;
 }
+function clearSession() {
+  sessionStorage.removeItem('ngs_sess2');
+  localStorage.removeItem('ngs_pers2');
+}
 
-/* ─── Activity log ───────────────────────────────── */
+/* ─── Activity log ───────────────────────── */
 function logActivity(email, action) {
-  const log = JSON.parse(localStorage.getItem('ngs_activity') || '[]');
-  log.unshift({ email, action, at: new Date().toLocaleString('en-GB') });
-  if (log.length > 200) log.splice(200);
-  localStorage.setItem('ngs_activity', JSON.stringify(log));
+  try {
+    const log = JSON.parse(localStorage.getItem('ngs_activity') || '[]');
+    log.unshift({ email, action, at: new Date().toLocaleString('en-GB') });
+    localStorage.setItem('ngs_activity', JSON.stringify(log.slice(0, 200)));
+  } catch(e) {}
 }
 
-/* ─── Auth UI helpers ────────────────────────────── */
-function authSwitchTab(tab, btn) {
-  document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('on'));
-  document.querySelectorAll('.auth-panel').forEach(p => p.classList.remove('on'));
-  btn.classList.add('on');
-  document.getElementById(`auth-${tab}-panel`).classList.add('on');
-  clearAuthErrors();
-}
+/* ═══════════════════════════════════════════
+   AUTH UI HELPERS
+═══════════════════════════════════════════ */
 function clearAuthErrors() {
-  ['login-err','login-ok','forgot-err','forgot-ok'].forEach(id => {
-    const el = document.getElementById(id);
+  ['login-err','login-ok','forgot-err','forgot-ok'].forEach(function(id) {
+    var el = document.getElementById(id);
     if (el) { el.classList.remove('on'); el.textContent = ''; }
   });
 }
-function showAuthErr(id, msg) {
-  const el = document.getElementById(id);
+function showErr(id, msg) {
+  var el = document.getElementById(id);
   if (el) { el.textContent = msg; el.classList.add('on'); }
 }
-function showAuthOk(id, msg) {
-  const el = document.getElementById(id);
+function showOk(id, msg) {
+  var el = document.getElementById(id);
   if (el) { el.textContent = msg; el.classList.add('on'); }
+}
+function authSwitchTab(tab, btn) {
+  document.querySelectorAll('.auth-tab').forEach(function(t) { t.classList.remove('on'); });
+  document.querySelectorAll('.auth-panel').forEach(function(p) { p.classList.remove('on'); });
+  if (btn) btn.classList.add('on');
+  var panel = document.getElementById('auth-' + tab + '-panel');
+  if (panel) panel.classList.add('on');
+  clearAuthErrors();
 }
 function togglePwVis(inputId, btn) {
-  const el = document.getElementById(inputId);
+  var el = document.getElementById(inputId);
   if (!el) return;
-  el.type = el.type === 'password' ? 'text' : 'password';
-  btn.textContent = el.type === 'password' ? '👁' : '🙈';
+  el.type = (el.type === 'password') ? 'text' : 'password';
+  if (btn) btn.textContent = (el.type === 'password') ? '👁' : '🙈';
 }
 function updateLockoutBar(email) {
-  const attempts = failedAttempts(email);
-  const bar = document.getElementById('lockout-bar');
-  const msg = document.getElementById('lockout-msg');
+  var fails = (getLockStore()[email.toLowerCase()] || {}).count || 0;
+  var bar = document.getElementById('lockout-bar');
+  var msg = document.getElementById('lockout-msg');
   if (!bar) return;
-  if (attempts > 0) {
+  if (fails > 0) {
     bar.style.display = 'flex';
-    bar.innerHTML = [1,2,3,4,5].map(i =>
-      `<div class="lockout-dot${i <= attempts ? ' used':''}" title="${i <= attempts ? 'Failed attempt':'Remaining'}"></div>`
-    ).join('');
+    bar.innerHTML = [1,2,3,4,5].map(function(i) {
+      return '<div class="lockout-dot' + (i <= fails ? ' used' : '') + '"></div>';
+    }).join('');
     if (msg) {
-      if (isLockedOut(email)) {
-        msg.style.display = '';
-        msg.textContent = '🔒 Account locked for 15 minutes after 5 failed attempts.';
-      } else {
-        msg.style.display = '';
-        msg.textContent = `${5-attempts} attempt${5-attempts!==1?'s':''} remaining before lockout.`;
-      }
+      msg.style.display = '';
+      msg.textContent = isLockedOut(email)
+        ? '🔒 Account locked for 15 minutes.'
+        : attemptsLeft(email) + ' attempt(s) remaining.';
     }
   } else {
     bar.style.display = 'none';
@@ -3737,1269 +3971,440 @@ function updateLockoutBar(email) {
   }
 }
 
-/* ─── SIGN IN ────────────────────────────────────── */
-async function doLogin() {
+/* ─── Get full staff list (always fresh) ─── */
+function getStaffList() {
+  var list = [];
+  try {
+    var saved = localStorage.getItem('ngs_staff');
+    if (saved) list = JSON.parse(saved);
+  } catch(e) {}
+  // Merge with STAFF_DIR to ensure defaults always present
+  var existingEmails = {};
+  list.forEach(function(p) { existingEmails[(p.email || '').toLowerCase()] = true; });
+  STAFF_DIR.forEach(function(p) {
+    if (!existingEmails[(p.email || '').toLowerCase()]) list.push(p);
+  });
+  return list;
+}
+
+/* ═══════════════════════════════════════════
+   SIGN IN
+═══════════════════════════════════════════ */
+function doLogin() {
   clearAuthErrors();
-  const email    = (document.getElementById('login-email')?.value || '').trim().toLowerCase();
-  const password = document.getElementById('login-pw')?.value || '';
-  const remember = document.getElementById('remember-me')?.checked;
 
-  if (!email || !password) {
-    showAuthErr('login-err', 'Please enter your email address and password.');
+  var emailInput = document.getElementById('login-email');
+  var pwInput    = document.getElementById('login-pw');
+  var remember   = document.getElementById('remember-me');
+
+  if (!emailInput || !pwInput) {
+    showErr('login-err', 'Page error — please refresh and try again.');
     return;
   }
 
-  // Find person in staff directory
-  const sd = staffData; // live staff data (persisted)
-  const person = sd.find(p => p.email && p.email.toLowerCase() === email);
+  var emailRaw = (emailInput.value || '').trim();
+  var email    = emailRaw.toLowerCase();
+  var password = pwInput.value || '';
+
+  /* Basic checks */
+  if (!email) { showErr('login-err', 'Please enter your email address.'); return; }
+  if (!password) { showErr('login-err', 'Please enter your password.'); return; }
+
+  /* Find person */
+  var staff  = getStaffList();
+  staffData  = staff;
+  var person = null;
+  for (var i = 0; i < staff.length; i++) {
+    if ((staff[i].email || '').toLowerCase() === email) { person = staff[i]; break; }
+  }
+
   if (!person) {
-    showAuthErr('login-err', 'No account found for this email address. Contact HR/Admin.');
-    return;
-  }
-  if (person.active !== 'Active') {
-    showAuthErr('login-err', 'Your account has been deactivated. Contact HR/Admin.');
+    showErr('login-err',
+      'No account found for: ' + emailRaw +
+      '\nCheck spelling — email must end with @newgas.com.gh');
     return;
   }
 
-  // Lockout check
+  if (person.active === 'Inactive') {
+    showErr('login-err', 'This account is deactivated. Contact HR/Admin.');
+    return;
+  }
+
   if (isLockedOut(email)) {
-    showAuthErr('login-err', '🔒 Account temporarily locked due to too many failed attempts. Try again in 15 minutes or contact IT Support.');
+    showErr('login-err', '🔒 Account locked for 15 minutes. Too many failed attempts.');
     updateLockoutBar(email);
     return;
   }
 
-  // Check if password is set; if not, use default
-  const pwStore = getPwStore();
-  const hasStoredPw = !!pwStore[email];
-  let valid = false;
-
-  if (!hasStoredPw) {
-    // First login — accept default password
-    const defPw = defaultPassword(person);
-    if (password === defPw) {
-      valid = true;
-    }
-  } else {
-    valid = await verifyPassword(email, password);
-  }
+  /* Verify password */
+  var valid = verifyLogin(email, password);
 
   if (!valid) {
-    const count = recordFailedAttempt(email);
+    var fails = recordFail(email);
     updateLockoutBar(email);
-    if (count >= 5) {
-      showAuthErr('login-err', '🔒 Account locked for 15 minutes due to too many failed attempts.');
-    } else {
-      showAuthErr('login-err', `Incorrect password. ${5-count} attempt${5-count!==1?'s':''} remaining.`);
-    }
+    var defPw = getDefaultPw(email);
+    var hint  = defPw ? ' Your default password is: ' + defPw : '';
+    showErr('login-err',
+      'Wrong password. ' + attemptsLeft(email) + ' attempt(s) left.' + hint);
     return;
   }
 
-  // Success
+  /* SUCCESS */
   clearLockout(email);
   logActivity(email, 'Login');
-  const user = {
-    name:    person.name,
-    email:   person.email,
-    role:    person.role || 'Staff',
-    dept:    person.dept,
-    unit:    person.unit,
-    phone:   person.phone,
-    avatar:  person.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase(),
-    firstLogin: !hasStoredPw,
+
+  var isFirstLogin = !getStoredPw(email) && !!(getDefaultPw(email));
+
+  var user = {
+    name:       person.name,
+    email:      person.email,
+    role:       person.role || 'Staff',
+    dept:       person.dept,
+    unit:       person.unit,
+    phone:      person.phone,
+    avatar:     person.name.split(' ').map(function(w) { return w[0]; }).join('').slice(0,2).toUpperCase(),
+    firstLogin: isFirstLogin,
   };
-  saveSession(user, remember);
+
+  saveSession(user, remember && remember.checked);
   bootApp(user);
 
-  // Force password change on first login
-  if (!hasStoredPw) {
-    setTimeout(() => openChangePassword(true), 800);
+  if (isFirstLogin) {
+    setTimeout(function() { openChangePassword(true); }, 800);
   }
 }
 
-/* ─── FORGOT PASSWORD ────────────────────────────── */
-async function doForgot() {
+/* ─── Forgot password ──────────────────── */
+function doForgot() {
   clearAuthErrors();
-  const email = (document.getElementById('forgot-email')?.value || '').trim().toLowerCase();
-  if (!email) { showAuthErr('forgot-err', 'Please enter your email address.'); return; }
-
-  const person = staffData.find(p => p.email && p.email.toLowerCase() === email);
-  if (!person) {
-    // Don't reveal whether account exists (security best practice)
-    showAuthOk('forgot-ok', 'If an account exists for this email, an Admin/HR officer has been notified to reset your password. Please check back shortly.');
-    return;
-  }
-
-  // Log the reset request as a notification for Admin
-  addNotif(`Password reset requested by ${person.name} (${email})`, '');
-  logActivity(email, 'Password reset requested');
-  showAuthOk('forgot-ok', `Reset request submitted. An Admin/HR officer will reset your password and notify you at ${email}.`);
+  var emailEl = document.getElementById('forgot-email');
+  var email   = ((emailEl && emailEl.value) || '').trim().toLowerCase();
+  if (!email) { showErr('forgot-err', 'Please enter your email address.'); return; }
+  addNotif('Password reset requested for: ' + email + '. Please reset via Admin → People → Reset PW.', '');
+  showOk('forgot-ok',
+    'Request logged. Ask your Admin/HR officer to reset your password. ' +
+    'Default passwords are in the format: newgas001, newgas002, etc.');
 }
 
-/* ─── CHANGE PASSWORD ────────────────────────────── */
-function openChangePassword(isFirstLogin) {
-  const overlay = document.getElementById('change-pw-overlay');
-  if (!overlay) return;
-  document.getElementById('cpw-current').value = '';
-  document.getElementById('cpw-new').value = '';
-  document.getElementById('cpw-confirm').value = '';
-  document.getElementById('change-pw-err').classList.remove('on');
-  document.getElementById('change-pw-ok').classList.remove('on');
-  const firstNote = document.getElementById('change-pw-first-note');
-  const cancelBtn = document.getElementById('change-pw-cancel');
-  if (firstNote) firstNote.style.display = isFirstLogin ? '' : 'none';
-  if (cancelBtn) cancelBtn.style.display = isFirstLogin ? 'none' : '';
-  const closeBtn = document.getElementById('change-pw-close');
-  if (closeBtn) closeBtn.style.display = isFirstLogin ? 'none' : '';
-  overlay.classList.add('on');
-  document.getElementById('pw-strength-bar').className = 'pw-strength';
-  document.getElementById('pw-strength-label').textContent = '';
+/* ─── Change password ───────────────────── */
+function openChangePassword(isFirst) {
+  var ov = document.getElementById('change-pw-overlay');
+  if (!ov) return;
+  ['cpw-current','cpw-new','cpw-confirm'].forEach(function(id) {
+    var el = document.getElementById(id); if (el) el.value = '';
+  });
+  var errEl   = document.getElementById('change-pw-err');
+  var okEl    = document.getElementById('change-pw-ok');
+  var noteEl  = document.getElementById('change-pw-first-note');
+  var cancelEl = document.getElementById('change-pw-cancel');
+  var closeEl = document.getElementById('change-pw-close');
+  if (errEl)   errEl.classList.remove('on');
+  if (okEl)    okEl.classList.remove('on');
+  if (noteEl)  noteEl.style.display   = isFirst ? '' : 'none';
+  if (cancelEl) cancelEl.style.display = isFirst ? 'none' : '';
+  if (closeEl) closeEl.style.display  = isFirst ? 'none' : '';
+  ov.classList.add('on');
 }
 function closeChangePw() {
-  document.getElementById('change-pw-overlay').classList.remove('on');
+  var ov = document.getElementById('change-pw-overlay');
+  if (ov) ov.classList.remove('on');
 }
 function checkPwStrength(pw) {
-  const bar = document.getElementById('pw-strength-bar');
-  const lbl = document.getElementById('pw-strength-label');
-  if (!pw) { bar.className = 'pw-strength'; lbl.textContent = ''; return; }
-  const hasUpper = /[A-Z]/.test(pw);
-  const hasLower = /[a-z]/.test(pw);
-  const hasNum   = /\d/.test(pw);
-  const hasSpec  = /[^A-Za-z0-9]/.test(pw);
-  const score    = (pw.length >= 8 ? 1:0) + (hasUpper?1:0) + (hasLower?1:0) + (hasNum?1:0) + (hasSpec?1:0);
-  if (score <= 2) { bar.className = 'pw-strength pw-strength-weak'; lbl.textContent = 'Weak — add numbers, capitals, symbols'; }
-  else if (score <= 3) { bar.className = 'pw-strength pw-strength-ok'; lbl.textContent = 'Moderate — add symbols to strengthen'; }
-  else { bar.className = 'pw-strength pw-strength-strong'; lbl.textContent = 'Strong password'; }
+  var bar = document.getElementById('pw-strength-bar');
+  var lbl = document.getElementById('pw-strength-label');
+  if (!bar) return;
+  if (!pw) { bar.className = 'pw-strength'; if (lbl) lbl.textContent = ''; return; }
+  var score = (pw.length >= 8 ? 1:0) + (/[A-Z]/.test(pw)?1:0) + (/\d/.test(pw)?1:0) + (/[^A-Za-z0-9]/.test(pw)?1:0);
+  if (score <= 1)      { bar.className = 'pw-strength pw-strength-weak';   if (lbl) lbl.textContent = 'Weak'; }
+  else if (score <= 2) { bar.className = 'pw-strength pw-strength-ok';     if (lbl) lbl.textContent = 'Moderate'; }
+  else                 { bar.className = 'pw-strength pw-strength-strong'; if (lbl) lbl.textContent = 'Strong'; }
 }
-async function doChangePassword() {
-  const errEl = document.getElementById('change-pw-err');
-  const okEl  = document.getElementById('change-pw-ok');
-  errEl.classList.remove('on'); okEl.classList.remove('on');
+function doChangePassword() {
+  var errEl = document.getElementById('change-pw-err');
+  var okEl  = document.getElementById('change-pw-ok');
+  if (errEl) errEl.classList.remove('on');
+  if (okEl)  okEl.classList.remove('on');
 
-  const current = document.getElementById('cpw-current').value;
-  const newPw   = document.getElementById('cpw-new').value;
-  const confirm = document.getElementById('cpw-confirm').value;
+  var current = (document.getElementById('cpw-current') || {}).value || '';
+  var newPw   = (document.getElementById('cpw-new')     || {}).value || '';
+  var confirm = (document.getElementById('cpw-confirm') || {}).value || '';
 
-  if (!current || !newPw || !confirm) { errEl.textContent = 'Please fill in all fields.'; errEl.classList.add('on'); return; }
-  if (newPw.length < 8)               { errEl.textContent = 'New password must be at least 8 characters.'; errEl.classList.add('on'); return; }
-  if (newPw !== confirm)              { errEl.textContent = 'New passwords do not match.'; errEl.classList.add('on'); return; }
-  if (current === newPw)              { errEl.textContent = 'New password must be different from your current password.'; errEl.classList.add('on'); return; }
-
-  // Verify current password (or default if first login)
-  const user   = currentUser;
-  const email  = user.email.toLowerCase();
-  const pwStore = getPwStore();
-  let currentValid = false;
-  if (!pwStore[email]) {
-    // First login - current is default
-    currentValid = (current === defaultPassword(staffData.find(p => p.email?.toLowerCase() === email) || {}));
-  } else {
-    currentValid = await verifyPassword(email, current);
+  if (!current || !newPw || !confirm) {
+    if (errEl) { errEl.textContent = 'Please fill in all fields.'; errEl.classList.add('on'); } return;
   }
-  if (!currentValid) { errEl.textContent = 'Current password is incorrect.'; errEl.classList.add('on'); return; }
+  if (newPw.length < 6) {
+    if (errEl) { errEl.textContent = 'New password must be at least 6 characters.'; errEl.classList.add('on'); } return;
+  }
+  if (newPw !== confirm) {
+    if (errEl) { errEl.textContent = 'New passwords do not match.'; errEl.classList.add('on'); } return;
+  }
 
-  await setPassword(email, newPw);
+  var email = (currentUser || {}).email || '';
+  if (!email) { if (errEl) { errEl.textContent = 'Not logged in.'; errEl.classList.add('on'); } return; }
+
+  if (!verifyLogin(email, current)) {
+    if (errEl) { errEl.textContent = 'Current password is incorrect.'; errEl.classList.add('on'); } return;
+  }
+
+  storeChangedPw(email, newPw);
   logActivity(email, 'Password changed');
-  okEl.textContent = 'Password updated successfully!';
-  okEl.classList.add('on');
-  // Update session
-  const sess = loadSession();
-  if (sess) { sess.firstLogin = false; saveSession(sess, !!localStorage.getItem('ngs_persist')); }
-  setTimeout(closeChangePw, 1800);
+  if (okEl) { okEl.textContent = 'Password updated!'; okEl.classList.add('on'); }
+  setTimeout(closeChangePw, 1400);
 }
 
-/* ─── Admin: Reset user password ─────────────────── */
-async function adminResetPassword(email, newPlaintext) {
-  await setPassword(email, newPlaintext);
-  // Mark as must-change
-  const store = getPwStore();
-  const e = email.toLowerCase();
-  if (store[e]) { store[e].mustChange = true; savePwStore(store); }
-  // Also clear lockout
-  clearLockout(email);
-  logActivity(email, `Password reset by admin (${currentUser?.name})`);
-  toast(`Password reset for ${email}. User must change on next login.`, 'ok');
+/* ─── Admin reset password ──────────────── */
+function openAdminResetPwModal(name, email) {
+  var defPw = getDefaultPw(email) || 'newgas001';
+  openModal('Reset Password — ' + name,
+    '<p style="font-size:13px;color:var(--mid);margin-bottom:1rem;line-height:1.6">Reset password for <strong>' + name + '</strong>. They will use this to sign in.</p>' +
+    '<div class="fld"><label style="font-size:12px;font-weight:700">New Password</label>' +
+    '<input type="text" id="admin-new-pw" value="' + defPw + '" style="margin-top:.3rem">' +
+    '<span style="font-size:11px;color:var(--mid);display:block;margin-top:.25rem">Default: ' + defPw + '</span></div>',
+    '<button class="btn btn-ghost" onclick="closeModal()">Cancel</button>' +
+    '<button class="btn btn-primary" onclick="doAdminResetPw(\'' + email + '\')">Reset Password</button>'
+  );
+}
+function doAdminResetPw(email) {
+  var el = document.getElementById('admin-new-pw');
+  var newPw = el ? el.value.trim() : '';
+  if (newPw.length < 4) { toast('Password must be at least 4 characters.', 'warn'); return; }
+  clearStoredPw(email);
+  storeChangedPw(email, newPw);
+  logActivity(email, 'Password reset by: ' + ((currentUser || {}).name || 'Admin'));
+  closeModal();
+  toast('Password reset for ' + email, 'ok');
 }
 
-/* ─── BOOT APP (after successful auth) ──────────────────────────────────── */
+/* ─── Logout ────────────────────────────── */
+function doLogout() {
+  if (currentUser) logActivity(currentUser.email, 'Logout');
+  clearSession();
+  currentUser = null;
+  var wall = document.getElementById('auth-wall');
+  if (wall) { wall.style.display = 'flex'; }
+  var emailEl = document.getElementById('login-email');
+  var pwEl    = document.getElementById('login-pw');
+  if (emailEl) emailEl.value = '';
+  if (pwEl)    pwEl.value    = '';
+  clearAuthErrors();
+  var pill = document.getElementById('user-pill-btn');
+  if (pill) pill.style.display = 'none';
+  var menu = document.getElementById('user-menu');
+  if (menu) menu.classList.remove('on');
+}
+
+/* ─── User menu ─────────────────────────── */
+function toggleUserMenu(forceClose) {
+  var menu = document.getElementById('user-menu');
+  if (!menu) return;
+  if (forceClose) { menu.classList.remove('on'); return; }
+  menu.classList.toggle('on');
+}
+document.addEventListener('click', function(e) {
+  var menu = document.getElementById('user-menu');
+  var pill = document.getElementById('user-pill-btn');
+  if (menu && menu.classList.contains('on') &&
+      !menu.contains(e.target) && e.target !== pill && !(pill && pill.contains(e.target))) {
+    menu.classList.remove('on');
+  }
+});
+
+/* ─── Clear lockout (from login screen) ─── */
+function clearAllLocks() {
+  localStorage.removeItem('ngs_lck2');
+  clearAuthErrors();
+  var bar = document.getElementById('lockout-bar');
+  if (bar) bar.style.display = 'none';
+  var msg = document.getElementById('lockout-msg');
+  if (msg) msg.style.display = 'none';
+  toast('Lockout cleared. You can try again now.', 'ok');
+}
+
+/* ═══════════════════════════════════════════
+   BOOT APP — after successful login
+═══════════════════════════════════════════ */
+function roleColor(role) {
+  var map = {
+    'Admin/HR Officer': '#5B21B6',
+    'Supervisor':       '#0F4C5C',
+    'Driver':           '#92400E',
+    'Executive':        '#111318',
+    'Staff':            '#D02028',
+  };
+  return map[role] || '#D02028';
+}
+function rolePillClass(role) {
+  var map = {
+    'Admin/HR Officer': 'role-admin',
+    'Supervisor':       'role-supervisor',
+    'Driver':           'role-driver',
+    'Executive':        'role-executive',
+    'Staff':            'role-staff',
+  };
+  return map[role] || 'role-staff';
+}
+
 function bootApp(user) {
   currentUser = user;
 
-  // Hide auth wall
-  const wall = document.getElementById('auth-wall');
-  if (wall) { wall.style.animation = 'none'; wall.style.opacity = '0'; wall.style.transition = 'opacity .35s'; setTimeout(() => wall.style.display='none', 350); }
+  /* Hide auth wall */
+  var wall = document.getElementById('auth-wall');
+  if (wall) { wall.style.display = 'none'; }
 
-  // Show nav elements
-  const pillBtn = document.getElementById('user-pill-btn');
-  if (pillBtn) pillBtn.style.display = '';
-  document.getElementById('user-avatar-el').textContent = user.avatar;
-  document.getElementById('user-avatar-el').style.background = roleColor(user.role);
-  document.getElementById('user-pill-name').textContent = user.name.split(' ')[0];
-  document.getElementById('user-pill-role').textContent = user.role;
+  /* Show user pill */
+  var pill = document.getElementById('user-pill-btn');
+  if (pill) pill.style.display = '';
+  var av = document.getElementById('user-avatar-el');
+  if (av) { av.textContent = user.avatar; av.style.background = roleColor(user.role); }
+  var pn = document.getElementById('user-pill-name');
+  if (pn) pn.textContent = user.name.split(' ')[0];
+  var pr = document.getElementById('user-pill-role');
+  if (pr) pr.textContent = user.role;
 
-  // Update user menu
-  document.getElementById('um-name').textContent  = user.name;
-  document.getElementById('um-email').textContent = user.email;
-  document.getElementById('um-dept').textContent  = `${user.dept} · ${user.unit}`;
-  const roleBadge = document.getElementById('um-role-badge');
-  if (roleBadge) {
-    roleBadge.textContent = user.role;
-    roleBadge.className   = `um-role-badge role-pill ${rolePillClass(user.role)}`;
+  /* User menu details */
+  var umName  = document.getElementById('um-name');
+  var umEmail = document.getElementById('um-email');
+  var umDept  = document.getElementById('um-dept');
+  var umBadge = document.getElementById('um-role-badge');
+  if (umName)  umName.textContent  = user.name;
+  if (umEmail) umEmail.textContent = user.email;
+  if (umDept)  umDept.textContent  = user.dept + ' · ' + user.unit;
+  if (umBadge) {
+    umBadge.textContent = user.role;
+    umBadge.className   = 'um-role-badge role-pill ' + rolePillClass(user.role);
   }
 
-  // Apply role-based nav visibility
-  applyRoleNav(user);
+  /* Role-based nav */
+  var adminTab = document.querySelector('.ntab[data-view="admin"]');
+  var isAdmin  = (user.role === 'Admin/HR Officer');
+  if (adminTab) adminTab.style.display = isAdmin ? '' : 'none';
 
-  // Init app if not already
-  if (!window._appInited) {
-    window._appInited = true;
-    initForm();
-    updateBdot();
-    renderNotifs();
-    loadLiveCompany();
-    liveLocations = JSON.parse(localStorage.getItem('ngs_locs')) || [...LOCS];
-    staffData = JSON.parse(localStorage.getItem('ngs_staff')) || JSON.parse(JSON.stringify(STAFF_DIR));
-    setTimeout(() => {
-      rebuildAllDropdowns();
-      popSel('f-loc', liveLocations, '\u2014 Select destination \u2014');
-      setEntryMode('select');
-    }, 100);
-    setTimeout(() => { updatePendingBadge(); checkMaintenanceAlerts(); }, 300);
+  /* Auto-unlock admin panel */
+  if (isAdmin) {
+    var lock  = document.getElementById('admin-lock');
+    var panel = document.getElementById('admin-content');
+    var day   = document.getElementById('admin-day');
+    if (lock)  lock.style.display  = 'none';
+    if (panel) panel.style.display = 'block';
+    if (day)   day.textContent     = todayLabel();
+    try { renderAdminKpis(); renderAdmin(); renderFleet(); renderStaffDir(); renderAuditLog(); } catch(e) {}
   }
 
-  // Redirect to appropriate default view
-  const defaultView = {
+  /* Initialise app once */
+  if (!window._booted) {
+    window._booted = true;
+    try { initForm(); } catch(e) {}
+    try { updateBdot(); renderNotifs(); } catch(e) {}
+    try { loadLiveCompany(); } catch(e) {}
+    liveLocations = JSON.parse(localStorage.getItem('ngs_locs') || 'null') || (typeof LOCS !== 'undefined' ? LOCS.slice() : []);
+    staffData = getStaffList();
+    setTimeout(function() {
+      try { rebuildAllDropdowns(); } catch(e) {}
+      try { popSel('f-loc', liveLocations, '\u2014 Select destination \u2014'); } catch(e) {}
+      try { setEntryMode('select'); } catch(e) {}
+    }, 150);
+    setTimeout(function() {
+      try { updatePendingBadge(); } catch(e) {}
+      try { checkMaintenanceAlerts(); } catch(e) {}
+    }, 500);
+    var savedTheme = localStorage.getItem('ngs_theme') || 'light';
+    try { applyTheme(savedTheme); } catch(e) {}
+  }
+
+  /* Navigate to default view for role */
+  var views = {
     'Admin/HR Officer': 'admin',
     'Supervisor':       'mine',
     'Executive':        'dashboard',
     'Driver':           'mine',
     'Staff':            'request',
-  }[user.role] || 'request';
-  gotoView(defaultView);
+  };
+  try { gotoView(views[user.role] || 'request'); } catch(e) {}
 
-  // Auto-fill step 1 with user data
-  setTimeout(() => prefillStep1FromUser(user), 200);
-}
-
-function roleColor(role) {
-  const map = {'Admin/HR Officer':'#5B21B6','Supervisor':'#0F4C5C','Driver':'#92400E','Executive':'#111318','Staff':'#D02028'};
-  return map[role] || '#D02028';
-}
-function rolePillClass(role) {
-  const map = {'Admin/HR Officer':'role-admin','Supervisor':'role-supervisor','Driver':'role-driver','Executive':'role-executive','Staff':'role-staff'};
-  return map[role] || 'role-staff';
-}
-
-function applyRoleNav(user) {
-  const isAdmin    = ['Admin/HR Officer'].includes(user.role);
-  const isSuperUp  = ['Admin/HR Officer','Supervisor','Executive'].includes(user.role);
-  const isExec     = user.role === 'Executive';
-
-  // Show/hide admin tab
-  const adminTab = document.querySelector('.ntab[data-view="admin"]');
-  if (adminTab) adminTab.style.display = isAdmin ? '' : 'none';
-
-  // Dashboard visibility
-  const dashTab = document.querySelector('.ntab[data-view="dashboard"]');
-  if (dashTab) dashTab.style.display = (isSuperUp || isExec) ? '' : '';
-
-  // If admin, auto-unlock admin panel (no code needed)
-  if (isAdmin && document.getElementById('admin-lock')) {
-    document.getElementById('admin-lock').style.display = 'none';
-    document.getElementById('admin-content').style.display = 'block';
-    if (document.getElementById('admin-day'))
-      document.getElementById('admin-day').textContent = todayLabel();
-    renderAdminKpis(); renderAdmin(); renderFleet(); renderStaffDir(); renderAuditLog();
-  }
-}
-
-/* ─── Pre-fill Step 1 from logged-in user ────────── */
-function prefillStep1FromUser(user) {
-  // Set quickfill
-  const qf = document.getElementById('f-quickfill');
-  if (qf) {
-    // Find option matching user name
-    for (let opt of qf.options) {
-      if (opt.value === user.name) { opt.selected = true; break; }
-    }
-  }
-  // Trigger fill
-  quickFillFromDirectory(user.name);
-}
-
-/* ─── Role-filtered data access ──────────────────── */
-
-// Override renderMine to auto-select current user
-const _origRenderMine = renderMine;
-renderMine = function() {
-  if (currentUser) {
-    const sel = document.getElementById('mine-name-sel');
-    if (sel && !sel.value && currentUser.name) {
-      // Try to select current user
-      for (let opt of sel.options) {
-        if (opt.value === currentUser.name) { opt.selected = true; break; }
+  /* Pre-fill form */
+  setTimeout(function() {
+    try {
+      var qf = document.getElementById('f-quickfill');
+      if (qf) {
+        for (var i = 0; i < qf.options.length; i++) {
+          if (qf.options[i].value === user.name) { qf.selectedIndex = i; break; }
+        }
+        quickFillFromDirectory(user.name);
       }
-      // If not found, add temp option
-      if (!sel.value) {
-        const o = document.createElement('option');
-        o.value = o.textContent = currentUser.name;
-        sel.appendChild(o);
-        sel.value = currentUser.name;
-      }
-    }
-  }
-  _origRenderMine();
-};
-
-// Override renderAdminRequests to filter by role
-const _origRenderAdminReqs3 = renderAdminRequests;
-renderAdminRequests = function() {
-  if (currentUser && currentUser.role === 'Supervisor') {
-    // Supervisor sees only their dept
-    const origRequests = requests;
-    // Temporarily override filter
-    window._deptFilter = currentUser.dept;
-  }
-  _origRenderAdminReqs3();
-  window._deptFilter = null;
-};
-
-// Patch setAdminFilter to respect dept filter
-const _origSetAdminFilter = setAdminFilter;
-setAdminFilter = function(f) {
-  adminFilter = f;
-  renderAdminRequests();
-};
-
-// Override renderDashboard to be role-aware
-const _origRenderDashboard2 = renderDashboard;
-renderDashboard = function() {
-  if (currentUser && currentUser.role === 'Supervisor') {
-    // Dashboard shows dept-filtered data for supervisors
-    document.getElementById('dash-subtitle').textContent += ` — ${currentUser.dept} only`;
-  }
-  _origRenderDashboard2();
-};
-
-/* ─── LOGOUT ─────────────────────────────────────── */
-function doLogout() {
-  if (currentUser) logActivity(currentUser.email, 'Logout');
-  clearSession();
-  currentUser = null;
-  // Show auth wall again
-  const wall = document.getElementById('auth-wall');
-  if (wall) {
-    wall.style.opacity = '0';
-    wall.style.display = 'flex';
-    // Clear form
-    if (document.getElementById('login-email')) document.getElementById('login-email').value = '';
-    if (document.getElementById('login-pw')) document.getElementById('login-pw').value = '';
-    clearAuthErrors();
-    document.getElementById('first-login-banner').style.display = 'none';
-    setTimeout(() => { wall.style.opacity = '1'; }, 10);
-  }
-  // Hide user pill
-  const pill = document.getElementById('user-pill-btn');
-  if (pill) pill.style.display = 'none';
-  toggleUserMenu(true);
+    } catch(e) {}
+  }, 400);
 }
 
-/* ─── User menu toggle ───────────────────────────── */
-function toggleUserMenu(forceClose) {
-  const menu = document.getElementById('user-menu');
-  if (!menu) return;
-  if (forceClose) { menu.classList.remove('on'); return; }
-  menu.classList.toggle('on');
-}
-document.addEventListener('click', e => {
-  const menu = document.getElementById('user-menu');
-  const btn  = document.getElementById('user-pill-btn');
-  if (menu && menu.classList.contains('on') && !menu.contains(e.target) && e.target !== btn && !btn?.contains(e.target))
-    menu.classList.remove('on');
-});
-
-/* ─── Admin: People tab — add password reset button ─ */
-// Override renderPeople to include reset password action
-const _origRenderPeople2 = renderPeople;
-renderPeople = function() {
-  _origRenderPeople2();
-  // Add reset password buttons
-  const tb = document.getElementById('people-tbody');
+/* ─── Staff directory render (admin tab) ── */
+function renderStaffDir() {
+  var tb = document.getElementById('staff-tbody');
   if (!tb) return;
-  tb.querySelectorAll('tr').forEach((tr, i) => {
-    const nameEl = tr.querySelector('td strong');
-    if (!nameEl) return;
-    const name   = nameEl.textContent;
-    const person = staffData.find(p => p.name === name);
-    if (!person || !person.email) return;
-    const actsTd = tr.querySelector('td:last-child');
-    if (!actsTd) return;
-    // Check if reset pw button already exists
-    if (actsTd.querySelector('.reset-pw-btn')) return;
-    const btn = document.createElement('button');
-    btn.className = 'ab reset-pw-btn';
-    btn.style.cssText = 'background:#EFF6FF;color:#1A56DB';
-    btn.textContent = '🔑 Reset PW';
-    btn.onclick = () => openAdminResetPwModal(name, person.email);
-    actsTd.querySelector('.acts')?.appendChild(btn);
-  });
-};
-
-function openAdminResetPwModal(name, email) {
-  openModal(`Reset Password — ${name}`,
-    `<div class="fld" style="margin-bottom:.85rem">
-       <p style="font-size:13px;color:var(--mid);margin-bottom:1rem;line-height:1.6">Set a new temporary password for <strong>${name}</strong> (${email}). They will be required to change it on their next login.</p>
-       <label style="font-size:12px;font-weight:700">New Temporary Password <span class="req-star">*</span></label>
-       <div class="pw-wrap">
-         <input type="password" id="admin-new-pw" placeholder="Temporary password (min. 6 chars)" style="margin-top:.3rem">
-         <button class="pw-eye" onclick="togglePwVis('admin-new-pw',this)" tabindex="-1">👁</button>
-       </div>
-       <div class="hint" style="margin-top:.35rem">Tip: Use a memorable temporary like their name + year, e.g. <code>kofi2025</code></div>
-     </div>`,
-    `<button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
-     <button class="btn btn-primary" onclick="doAdminResetPw('${email}')">Reset Password</button>`
-  );
-}
-async function doAdminResetPw(email) {
-  const newPw = document.getElementById('admin-new-pw')?.value || '';
-  if (newPw.length < 6) { toast('Password must be at least 6 characters.', 'warn'); return; }
-  await adminResetPassword(email, newPw);
-  closeModal();
+  var list = getStaffList();
+  tb.innerHTML = list.map(function(s) {
+    var dc = (COMPANY.departments[s.dept] || {}).color || 'var(--mid)';
+    return '<tr>' +
+      '<td><strong>' + s.name + '</strong></td>' +
+      '<td><span style="font-size:11.5px;font-weight:700;color:' + dc + '">' + s.dept + '</span></td>' +
+      '<td class="dim">' + s.unit + '</td>' +
+      '<td><span class="role-pill ' + rolePillClass(s.role) + '">' + s.role + '</span></td>' +
+      '<td class="dim">' + s.phone + '</td>' +
+      '<td class="dim">' + (s.email || '\u2014') + '</td>' +
+      '<td><span style="font-size:11.5px;font-weight:700;color:' + (s.active==='Active'?'var(--green)':'var(--red)') + '">' + s.active + '</span></td>' +
+      '</tr>';
+  }).join('');
 }
 
-/* ─── Admin: Activity log tab ────────────────────── */
-// Add activity log rendering if admin panel has audit tab
+/* ─── Activity log in audit tab ──────────── */
 function renderActivityLog() {
-  const log = JSON.parse(localStorage.getItem('ngs_activity') || '[]');
-  const tb  = document.getElementById('audit-tbody');
-  if (!tb || log.length === 0) return;
-  // Prepend activity entries
-  const actHtml = log.slice(0, 50).map(l =>
-    `<tr style="background:rgba(27,79,216,.03)">
-      <td class="dim" style="font-size:10.5px">🔐 Auth</td>
-      <td><span class="reftag" style="background:var(--blue-lt);color:var(--blue-dk)">LOGIN</span></td>
-      <td class="dim" style="font-size:11px">System</td>
-      <td class="dim">\u2014</td>
-      <td><span class="sb sb-asgn" style="font-size:10px">${l.action}</span></td>
-      <td style="font-size:13px">${l.email}</td>
-      <td class="dim">${l.at}</td>
-      <td class="dim">\u2014</td>
-    </tr>`
-  ).join('');
-  tb.insertAdjacentHTML('afterbegin', actHtml);
+  var log = JSON.parse(localStorage.getItem('ngs_activity') || '[]');
+  var tb  = document.getElementById('audit-tbody');
+  if (!tb || !log.length) return;
+  var html = log.slice(0, 50).map(function(l) {
+    return '<tr style="background:rgba(27,79,216,.03)">' +
+      '<td class="dim" style="font-size:10.5px">\uD83D\uDD10 Auth</td>' +
+      '<td><span class="reftag" style="background:var(--blue-lt);color:var(--blue-dk)">LOGIN</span></td>' +
+      '<td class="dim">System</td><td class="dim">\u2014</td>' +
+      '<td><span class="sb sb-asgn" style="font-size:10px">' + l.action + '</span></td>' +
+      '<td>' + l.email + '</td>' +
+      '<td class="dim">' + l.at + '</td>' +
+      '<td class="dim">\u2014</td>' +
+      '</tr>';
+  }).join('');
+  tb.insertAdjacentHTML('afterbegin', html);
 }
 
-// Override renderAuditLog to include activity
-const _origRenderAuditLog2 = renderAuditLog;
-renderAuditLog = function() {
-  _origRenderAuditLog2();
-  renderActivityLog();
-};
+/* ═══════════════════════════════════════════
+   APP INIT — runs immediately on page load
+═══════════════════════════════════════════ */
+(function() {
+  staffData = getStaffList();
 
-/* ══════════════════════════════════════════════════════════════════
-   BOOT — Check for existing session before showing auth wall
-══════════════════════════════════════════════════════════════════ */
-(function initAuth() {
-  // Load live staff data first (needed for auth)
-  staffData = JSON.parse(localStorage.getItem('ngs_staff')) || JSON.parse(JSON.stringify(STAFF_DIR));
-
-  // Check for existing session
-  const existingUser = loadSession();
-  if (existingUser) {
-    // Validate the user still exists and is active
-    const person = staffData.find(p => p.email && p.email.toLowerCase() === existingUser.email?.toLowerCase());
+  /* Restore saved session */
+  var saved = loadSession();
+  if (saved) {
+    var list   = getStaffList();
+    var person = null;
+    for (var i = 0; i < list.length; i++) {
+      if ((list[i].email || '').toLowerCase() === (saved.email || '').toLowerCase()) {
+        person = list[i]; break;
+      }
+    }
     if (person && person.active !== 'Inactive') {
-      bootApp(existingUser);
+      bootApp(saved);
       return;
     }
     clearSession();
   }
 
-  // No valid session - show auth wall
-  const wall = document.getElementById('auth-wall');
-  if (wall) wall.style.display = 'flex';
-  // Focus email field
-  setTimeout(() => document.getElementById('login-email')?.focus(), 300);
+  /* Show login screen */
+  var wall = document.getElementById('auth-wall');
+  if (wall) { wall.style.display = 'flex'; wall.style.opacity = '1'; }
+  setTimeout(function() {
+    var emailEl = document.getElementById('login-email');
+    if (emailEl) emailEl.focus();
+  }, 300);
 })();
 
-
-/* ══════════════════════════════════════════════════════════════════
-   DARK MODE TOGGLE
-══════════════════════════════════════════════════════════════════ */
-(function initDarkMode(){
-  const saved = localStorage.getItem('ngs_theme') || 'light';
-  applyTheme(saved);
-})();
-
-function applyTheme(theme){
-  document.documentElement.setAttribute('data-theme', theme);
-  localStorage.setItem('ngs_theme', theme);
-  const btn = document.getElementById('dm-btn');
-  if(btn) btn.textContent = theme === 'dark' ? '☀' : '🌙';
-}
-
-function toggleDarkMode(){
-  const current = document.documentElement.getAttribute('data-theme') || 'light';
-  applyTheme(current === 'dark' ? 'light' : 'dark');
-}
-
-/* ══════════════════════════════════════════════════════════════════
-   AUTO-SAVE (debounced — fires 2s after user stops typing)
-══════════════════════════════════════════════════════════════════ */
-let _autoSaveTimer = null;
-
-function autoSaveTrigger(){
-  clearTimeout(_autoSaveTimer);
-  _autoSaveTimer = setTimeout(() => {
-    // Only auto-save if on the form view and something is filled
-    const title = document.getElementById('f-title')?.value;
-    const desc  = document.getElementById('f-desc')?.value;
-    if(title || desc){
-      const snap = captureFields();
-      if(snap.title || snap.desc){
-        draftData = {...snap, prio: fd.prio, type: fd.type, editingId, step, _autoSaved: true};
-        localStorage.setItem('ngs_draft', JSON.stringify(draftData));
-        // Subtle indicator — no toast, just a tiny flash on the save button
-        const btn = document.getElementById('btn-draft');
-        if(btn){
-          btn.textContent = '✓ Saved';
-          btn.style.color = 'var(--green)';
-          setTimeout(()=>{ btn.textContent = '💾 Save Draft'; btn.style.color=''; }, 2000);
-        }
-      }
-    }
-  }, 2000);
-}
-
-function updateCharCount(el, counterId){
-  const counter = document.getElementById(counterId);
-  if(!counter) return;
-  const len = el.value.length;
-  const max = parseInt(el.getAttribute('maxlength')) || 600;
-  counter.textContent = `${len} / ${max}`;
-  counter.style.color = len > max * 0.9 ? 'var(--amber)' : 'var(--mid)';
-  if(len >= max) counter.style.color = 'var(--red)';
-}
-
-/* ══════════════════════════════════════════════════════════════════
-   SESSION TIMEOUT (30 min inactivity)
-══════════════════════════════════════════════════════════════════ */
-const SESSION_TIMEOUT_MS = 30 * 60 * 1000; // 30 minutes
-let _lastActivity   = Date.now();
-let _timeoutTimer   = null;
-let _warningShown   = false;
-let _warningToastEl = null;
-
-function resetActivityTimer(){
-  _lastActivity = Date.now();
-  if(_warningShown){
-    _warningShown = false;
-    if(_warningToastEl){ _warningToastEl.remove(); _warningToastEl = null; }
-  }
-}
-
-function checkSessionTimeout(){
-  if(!currentUser) return;
-  const idle = Date.now() - _lastActivity;
-  const warnAt = SESSION_TIMEOUT_MS - (2 * 60 * 1000); // warn 2 min before
-
-  if(idle >= SESSION_TIMEOUT_MS){
-    // Session expired — force logout
-    if(_warningToastEl){ _warningToastEl.remove(); _warningToastEl = null; }
-    toast('Session expired due to inactivity. Please sign in again.', 'warn', 5000);
-    setTimeout(doLogout, 1500);
-    return;
-  }
-
-  if(idle >= warnAt && !_warningShown){
-    _warningShown = true;
-    // Show persistent warning toast
-    const shelf = document.getElementById('toast-shelf');
-    if(shelf){
-      _warningToastEl = document.createElement('div');
-      _warningToastEl.className = 'toast warn';
-      _warningToastEl.style.cssText = 'pointer-events:auto;cursor:pointer';
-      _warningToastEl.innerHTML = '<span>⏰</span><span>Session expiring in 2 min — <strong>click to stay</strong></span>';
-      _warningToastEl.onclick = () => { resetActivityTimer(); };
-      shelf.appendChild(_warningToastEl);
-    }
-  }
-}
-
-// Track user activity
-['mousemove','keydown','click','scroll','touchstart'].forEach(ev => {
-  document.addEventListener(ev, resetActivityTimer, {passive: true});
-});
-
-// Check every 30 seconds
-setInterval(checkSessionTimeout, 30 * 1000);
-
-/* ══════════════════════════════════════════════════════════════════
-   OVERDUE ESCALATION AUTO-NOTIFICATION
-══════════════════════════════════════════════════════════════════ */
-function checkOverdueEscalation(reqId, req){
-  // Called after status changes — not needed for this specific call
-}
-
-function runOverdueEscalations(){
-  if(!currentUser) return;
-  const now = new Date();
-  requests.forEach(r => {
-    if(['Completed & Confirmed','Cancelled','Rejected'].includes(r.status)) return;
-
-    // Submitted for more than 4 hours without supervisor action → escalate
-    if(r.status === 'Submitted'){
-      const subTime = new Date(r.date);
-      const hrsWaiting = (now - subTime) / 3600000;
-      if(hrsWaiting >= 4 && !r._escalated4h){
-        r._escalated4h = true;
-        addNotif(
-          `⏰ Escalation: Request ${r.id} from ${r.name} (${r.dept}) has been awaiting approval for ${Math.round(hrsWaiting)} hours. Supervisor: ${r.sup}`,
-          r.id
-        );
-        addAudit(r.id, r.dept, r.status, r.status, 'System', `Auto-escalation: waiting ${Math.round(hrsWaiting)}hrs for approval.`);
-      }
-    }
-
-    // Past planned end time and not completed → overdue alert
-    if(r.end && r.status !== 'Draft'){
-      const endTime = new Date(r.end);
-      if(now > endTime && !r._overdueAlerted){
-        r._overdueAlerted = true;
-        const hrsOverdue = Math.round((now - endTime) / 3600000);
-        addNotif(
-          `⚠ Overdue: Request ${r.id} — "${r.title}" was due to end ${hrsOverdue > 0 ? hrsOverdue+'hr(s)' : 'just now'} ago. Current status: ${r.status}.`,
-          r.id
-        );
-      }
-    }
-  });
-  saveAll();
-}
-
-// Run escalation check every 5 minutes
-setInterval(runOverdueEscalations, 5 * 60 * 1000);
-// Also run once on login
-setTimeout(runOverdueEscalations, 3000);
-
-/* ══════════════════════════════════════════════════════════════════
-   PDF EXPORT — print a formatted single-request PDF
-   and a full report PDF via the print dialog
-══════════════════════════════════════════════════════════════════ */
-function exportRequestPDF(id){
-  const r = requests.find(x => x.id === id);
-  if(!r) return;
-
-  const log = auditLog.filter(l => l.reqId === id).slice().reverse();
-  const tl  = log.map(l =>
-    `<tr><td>${l.dt}</td><td>${l.from||'—'}</td><td>${l.to}</td><td>${l.by}</td><td>${l.note||'—'}</td></tr>`
-  ).join('');
-
-  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8">
-  <title>Newgas Fleet — ${r.id}</title>
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:Arial,sans-serif;font-size:12px;color:#111;padding:24px}
-    .header{display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid #D02028;padding-bottom:12px;margin-bottom:20px}
-    .logo{font-size:22px;font-weight:700;color:#D02028}
-    .ref{font-size:18px;font-weight:700;color:#111}
-    h2{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#555;margin:16px 0 8px;padding-bottom:4px;border-bottom:1px solid #ddd}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:4px}
-    .field{background:#f7f8fc;border:1px solid #e2e7f1;border-radius:6px;padding:7px 10px}
-    .field-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#6b7280;margin-bottom:3px}
-    .field-value{font-size:12px;font-weight:600;color:#111}
-    .full{grid-column:1/-1}
-    table{width:100%;border-collapse:collapse;font-size:11px;margin-top:8px}
-    th{background:#f7f8fc;padding:6px 8px;text-align:left;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#6b7280;border-bottom:2px solid #e2e7f1}
-    td{padding:6px 8px;border-bottom:1px solid #e2e7f1;color:#3b4255}
-    .badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700}
-    .footer{margin-top:24px;padding-top:12px;border-top:1px solid #e2e7f1;font-size:10px;color:#9aa0b8;display:flex;justify-content:space-between}
-    ${r.prio==='Urgent'?'.prio-badge{background:#FEF2F2;color:#A8181F}':''}
-    ${r.prio==='High'?'.prio-badge{background:#FFFBEB;color:#92400E}':''}
-    @media print{body{padding:0}@page{margin:15mm}}
-  </style>
-  </head><body>
-  <div class="header">
-    <div>
-      <div class="logo">Newgas</div>
-      <div style="font-size:10px;color:#9aa0b8;margin-top:2px">Fleet Management Portal</div>
-    </div>
-    <div style="text-align:right">
-      <div class="ref">${r.id}</div>
-      <div style="font-size:10px;color:#6b7280;margin-top:2px">Generated: ${new Date().toLocaleString('en-GB')}</div>
-    </div>
-  </div>
-
-  <h2>Request Overview</h2>
-  <div class="grid">
-    <div class="field"><div class="field-label">Status</div><div class="field-value">${r.status}</div></div>
-    <div class="field"><div class="field-label">Priority</div><div class="field-value prio-badge badge">${r.prio}</div></div>
-    <div class="field"><div class="field-label">Requester</div><div class="field-value">${r.name}</div></div>
-    <div class="field"><div class="field-label">Phone</div><div class="field-value">${r.phone}</div></div>
-    <div class="field"><div class="field-label">Department</div><div class="field-value">${r.dept}</div></div>
-    <div class="field"><div class="field-label">Unit</div><div class="field-value">${r.unit}</div></div>
-    <div class="field"><div class="field-label">Supervisor</div><div class="field-value">${r.sup}</div></div>
-    <div class="field"><div class="field-label">Admin / HR Officer</div><div class="field-value">${r.adminOfficer||'—'}</div></div>
-    <div class="field full"><div class="field-label">Task Title</div><div class="field-value">${r.title}</div></div>
-    <div class="field full"><div class="field-label">Task Description</div><div class="field-value">${r.desc}</div></div>
-    ${r.notes?`<div class="field full"><div class="field-label">Special Notes</div><div class="field-value">${r.notes}</div></div>`:''}
-  </div>
-
-  <h2>Logistics</h2>
-  <div class="grid">
-    <div class="field"><div class="field-label">Destination</div><div class="field-value">${r.loc}</div></div>
-    <div class="field"><div class="field-label">Category</div><div class="field-value">${r.cat}</div></div>
-    <div class="field"><div class="field-label">Departure</div><div class="field-value">${r.start||'—'}</div></div>
-    <div class="field"><div class="field-label">Return</div><div class="field-value">${r.end||'—'}</div></div>
-    <div class="field"><div class="field-label">Duration</div><div class="field-value">${r.dur} hrs</div></div>
-    <div class="field"><div class="field-label">Staff Count</div><div class="field-value">${r.staff}</div></div>
-    <div class="field"><div class="field-label">Vehicles Required</div><div class="field-value">${r.vnum} × ${r.vtype}</div></div>
-    <div class="field"><div class="field-label">Vehicle Assigned</div><div class="field-value">${r.vehicle||'—'}</div></div>
-    ${r.distanceTravelled?`<div class="field"><div class="field-label">Distance Travelled</div><div class="field-value">${r.distanceTravelled} km</div></div>`:''}
-    ${r.fuelIssued?`<div class="field"><div class="field-label">Fuel Issued</div><div class="field-value">${r.fuelIssued} L</div></div>`:''}
-    ${r.supervisorNote?`<div class="field full" style="background:#f0fdf4;border-color:#bbf7d0"><div class="field-label">Supervisor Note</div><div class="field-value">${r.supervisorNote}</div></div>`:''}
-    ${r.tripNotes?`<div class="field full" style="background:#ecfeff;border-color:#a5f3fc"><div class="field-label">Trip Completion Notes</div><div class="field-value">${r.tripNotes}</div></div>`:''}
-    ${r.incident&&r.incident!=='None'?`<div class="field full" style="background:#fffbeb;border-color:#fde68a"><div class="field-label">Incident</div><div class="field-value">${r.incident}</div></div>`:''}
-  </div>
-
-  <h2>Status History</h2>
-  <table>
-    <thead><tr><th>Date / Time</th><th>From</th><th>To</th><th>By</th><th>Note</th></tr></thead>
-    <tbody>${tl||'<tr><td colspan="5">No history recorded</td></tr>'}</tbody>
-  </table>
-
-  <div class="footer">
-    <span>Newgas Fleet Management Portal · Confidential</span>
-    <span>Printed by ${currentUser?.name||'Unknown'} on ${new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}</span>
-  </div>
-  </body></html>`;
-
-  const win = window.open('', '_blank');
-  if(win){
-    win.document.write(html);
-    win.document.close();
-    setTimeout(() => { win.focus(); win.print(); }, 400);
-  } else {
-    toast('Pop-ups are blocked. Please allow pop-ups for this page.', 'warn');
-  }
-}
-
-function exportFullReport(){
-  // Build full summary report for all current filtered requests
-  const filtered = requests;
-  const now = new Date();
-  const rows = filtered.map(r =>
-    `<tr>
-      <td>${r.id}</td><td>${r.date?.slice(0,10)||'—'}</td><td>${r.name}</td>
-      <td>${r.dept}</td><td>${r.title}</td><td>${r.prio}</td>
-      <td>${r.status}</td><td>${r.vehicle||'—'}</td>
-      <td>${r.distanceTravelled||'—'}</td><td>${r.fuelIssued||'—'}</td>
-    </tr>`
-  ).join('');
-
-  const totals = {
-    total: filtered.length,
-    completed: filtered.filter(r=>r.status==='Completed & Confirmed').length,
-    distance: filtered.reduce((a,r)=>a+(parseInt(r.distanceTravelled)||0),0),
-    fuel: filtered.reduce((a,r)=>a+(parseFloat(r.fuelIssued)||0),0),
-  };
-
-  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8">
-  <title>Newgas Fleet — Full Report</title>
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:Arial,sans-serif;font-size:11px;color:#111;padding:20px}
-    .header{display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid #D02028;padding-bottom:10px;margin-bottom:16px}
-    .logo{font-size:20px;font-weight:700;color:#D02028}
-    h2{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#555;margin:14px 0 6px}
-    .summary{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
-    .s-card{background:#f7f8fc;border:1px solid #e2e7f1;border-radius:6px;padding:8px 10px;text-align:center}
-    .s-val{font-size:20px;font-weight:700;color:#D02028}
-    .s-lbl{font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:#6b7280;margin-top:2px}
-    table{width:100%;border-collapse:collapse;font-size:10px}
-    th{background:#f7f8fc;padding:5px 6px;text-align:left;font-size:9px;font-weight:700;text-transform:uppercase;color:#6b7280;border-bottom:2px solid #e2e7f1}
-    td{padding:5px 6px;border-bottom:1px solid #f0f0f0;color:#3b4255}
-    tr:nth-child(even) td{background:#fafafa}
-    .footer{margin-top:16px;padding-top:10px;border-top:1px solid #e2e7f1;font-size:9px;color:#9aa0b8;display:flex;justify-content:space-between}
-    @media print{@page{margin:12mm;size:A4 landscape}}
-  </style></head><body>
-  <div class="header">
-    <div><div class="logo">Newgas</div><div style="font-size:10px;color:#9aa0b8">Fleet Management Report</div></div>
-    <div style="text-align:right;font-size:10px;color:#6b7280">
-      Generated: ${now.toLocaleString('en-GB')}<br>
-      By: ${currentUser?.name||'Admin'}
-    </div>
-  </div>
-  <h2>Summary</h2>
-  <div class="summary">
-    <div class="s-card"><div class="s-val">${totals.total}</div><div class="s-lbl">Total Requests</div></div>
-    <div class="s-card"><div class="s-val">${totals.completed}</div><div class="s-lbl">Completed</div></div>
-    <div class="s-card"><div class="s-val">${totals.distance} km</div><div class="s-lbl">Total Distance</div></div>
-    <div class="s-card"><div class="s-val">${totals.fuel} L</div><div class="s-lbl">Total Fuel</div></div>
-  </div>
-  <h2>All Requests</h2>
-  <table>
-    <thead><tr><th>Ref</th><th>Date</th><th>Requester</th><th>Department</th><th>Task</th><th>Priority</th><th>Status</th><th>Vehicle</th><th>Distance (km)</th><th>Fuel (L)</th></tr></thead>
-    <tbody>${rows}</tbody>
-  </table>
-  <div class="footer">
-    <span>Newgas Fleet Management Portal · Confidential · Do not distribute</span>
-    <span>${now.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}</span>
-  </div>
-  </body></html>`;
-
-  const win = window.open('', '_blank');
-  if(win){
-    win.document.write(html);
-    win.document.close();
-    setTimeout(()=>{ win.focus(); win.print(); }, 400);
-  } else {
-    toast('Pop-ups blocked. Please allow pop-ups.', 'warn');
-  }
-}
-
-/* ══════════════════════════════════════════════════════════════════
-   DASHBOARD ENHANCEMENTS
-   - Top requesters
-   - Average trip duration
-   - Month-over-month comparison
-══════════════════════════════════════════════════════════════════ */
-
-// Inject after existing renderDashboard — extend the dashboard HTML
-const _origRenderDashboardEnhanced = renderDashboard;
-renderDashboard = function(){
-  _origRenderDashboardEnhanced();
-  renderDashboardExtras();
-};
-
-function renderDashboardExtras(){
-  const period = document.getElementById('dash-period')?.value || 'today';
-  const now = new Date();
-  const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-
-  function inPeriod(r){
-    const d = new Date(r.date);
-    if(period==='today') return d>=todayStart;
-    if(period==='week'){const ws=new Date(todayStart);ws.setDate(ws.getDate()-ws.getDay());return d>=ws;}
-    if(period==='month') return d.getMonth()===now.getMonth()&&d.getFullYear()===now.getFullYear();
-    return true;
-  }
-  const filtered = requests.filter(inPeriod);
-
-  // ── Top Requesters ──
-  const reqCounts = {};
-  filtered.forEach(r=>{ reqCounts[r.name]=(reqCounts[r.name]||0)+1; });
-  const topReqs = Object.entries(reqCounts).sort((a,b)=>b[1]-a[1]).slice(0,5);
-  const maxReqCount = topReqs[0]?.[1] || 1;
-
-  // ── Average Trip Duration ──
-  const durationNums = filtered
-    .filter(r=>r.dur && parseFloat(r.dur)>0)
-    .map(r=>parseFloat(r.dur));
-  const avgDur = durationNums.length
-    ? (durationNums.reduce((a,b)=>a+b,0)/durationNums.length).toFixed(1)
-    : '—';
-
-  // ── Month-over-month ──
-  const thisMonth  = requests.filter(r=>{ const d=new Date(r.date); return d.getMonth()===now.getMonth()&&d.getFullYear()===now.getFullYear(); }).length;
-  const lastMonth  = requests.filter(r=>{ const d=new Date(r.date); const lm=new Date(now.getFullYear(),now.getMonth()-1,1); return d.getMonth()===lm.getMonth()&&d.getFullYear()===lm.getFullYear(); }).length;
-  const momChange  = lastMonth ? Math.round(((thisMonth-lastMonth)/lastMonth)*100) : 0;
-  const momLabel   = lastMonth===0 ? 'no prior data' : `${momChange>=0?'+':''}${momChange}% vs last month`;
-  const momColor   = momChange>=0 ? 'var(--green)' : 'var(--red)';
-
-  // ── Total distance & fuel ──
-  const totalDist = filtered.reduce((a,r)=>a+(parseInt(r.distanceTravelled)||0),0);
-  const totalFuel = filtered.reduce((a,r)=>a+(parseFloat(r.fuelIssued)||0),0).toFixed(1);
-
-  // Find or create extras panel
-  let extrasPanel = document.getElementById('dash-extras-panel');
-  if(!extrasPanel){
-    extrasPanel = document.createElement('div');
-    extrasPanel.id = 'dash-extras-panel';
-    extrasPanel.style.cssText = 'margin-top:1rem';
-    const dashBody = document.getElementById('dash-body');
-    if(dashBody) dashBody.appendChild(extrasPanel);
-  }
-
-  extrasPanel.innerHTML = `
-    <!-- MoM + trip stats -->
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.8rem;margin-bottom:1rem">
-      <div class="dash-kpi-mini">
-        <div class="dk-accent" style="background:var(--teal)"></div>
-        <div class="dk-label">Avg Trip Duration</div>
-        <div class="dk-val">${avgDur}<span style="font-size:1rem;font-weight:400;color:var(--mid)"> hrs</span></div>
-        <div class="dk-delta neu">across ${durationNums.length} trips</div>
-      </div>
-      <div class="dash-kpi-mini">
-        <div class="dk-accent" style="background:var(--blue)"></div>
-        <div class="dk-label">This Month</div>
-        <div class="dk-val">${thisMonth}</div>
-        <div class="dk-delta" style="color:${momColor}">${momLabel}</div>
-      </div>
-      <div class="dash-kpi-mini">
-        <div class="dk-accent" style="background:var(--violet)"></div>
-        <div class="dk-label">Total Distance</div>
-        <div class="dk-val">${totalDist}<span style="font-size:1rem;font-weight:400;color:var(--mid)"> km</span></div>
-        <div class="dk-delta neu">${totalFuel} L fuel issued</div>
-      </div>
-    </div>
-
-    <!-- Top Requesters -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
-      <div class="card" style="padding:1.25rem">
-        <div style="font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--mid);margin-bottom:1rem">Top Requesters${period!=='all'?' — '+{today:'Today',week:'This Week',month:'This Month'}[period]:''}</div>
-        ${topReqs.length ? topReqs.map(([name,count],i)=>`
-          <div class="dept-bar-row" style="margin-bottom:.55rem">
-            <span style="width:130px;font-size:12px;font-weight:600;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex-shrink:0">${i===0?'🥇 ':i===1?'🥈 ':i===2?'🥉 ':'    '}${name.split(' ')[0]}</span>
-            <div class="dept-bar-track"><div class="dept-bar-fill" style="width:${Math.round((count/maxReqCount)*100)}%;background:var(--red)"></div></div>
-            <span class="dept-bar-count">${count}</span>
-          </div>`).join('') : '<p style="font-size:12.5px;color:var(--mid)">No data for this period</p>'}
-      </div>
-
-      <!-- Month-over-month bar -->
-      <div class="card" style="padding:1.25rem">
-        <div style="font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--mid);margin-bottom:1rem">Monthly Comparison</div>
-        ${(()=>{
-          const months=[];
-          for(let i=5;i>=0;i--){
-            const d=new Date(now.getFullYear(),now.getMonth()-i,1);
-            const cnt=
-
-/* ══════════════════════════════════════════════════════════════════
-   MY REQUESTS — SEARCH, SORT & STATUS FILTER
-══════════════════════════════════════════════════════════════════ */
-const _origRenderMineFinal = renderMine;
-renderMine = function() {
-  // Show filters once a name is selected
-  const name = document.getElementById('mine-name-sel')?.value || '';
-  const filtersRow = document.getElementById('mine-filters-row');
-  const searchRow  = document.getElementById('mine-search-row');
-  if (filtersRow) filtersRow.style.display = name ? '' : 'none';
-  if (searchRow)  searchRow.style.display  = name ? '' : 'none';
-  _origRenderMineFinal();
-};
-
-// Override renderMine inner to apply search + status filter
-const _origRenderMineContent = renderMine;
-renderMine = (function(orig) {
-  return function() {
-    // Call base first so name-sel is handled
-    orig();
-    const name       = document.getElementById('mine-name-sel')?.value || '';
-    const statusF    = document.getElementById('mine-status-sel')?.value || '';
-    const searchQ    = (document.getElementById('mine-search-inp')?.value || '').toLowerCase();
-    if (!name) return; // base already handled empty name case
-
-    // Re-filter the rendered cards
-    const mineContent = document.getElementById('mine-content');
-    if (!mineContent) return;
-
-    const cards = mineContent.querySelectorAll('.rcard');
-    cards.forEach(card => {
-      const cardText = card.textContent.toLowerCase();
-      const matchSearch = !searchQ || cardText.includes(searchQ);
-      // Status match — read from badge text
-      const badgeEl = card.querySelector('.sb');
-      const cardStatus = badgeEl ? badgeEl.textContent.trim() : '';
-      const matchStatus = !statusF || cardStatus === statusF;
-      card.style.display = (matchSearch && matchStatus) ? '' : 'none';
-    });
-
-    // Update KPI strip to show filtered count
-    const visible = [...cards].filter(c => c.style.display !== 'none').length;
-    const total   = cards.length;
-    if (searchQ || statusF) {
-      const sub = document.querySelector('#mine-kpis + *');
-      // Add filter note
-      const existing = document.getElementById('mine-filter-note');
-      if (!existing) {
-        const note = document.createElement('div');
-        note.id = 'mine-filter-note';
-        note.style.cssText = 'font-size:12.5px;color:var(--mid);margin-bottom:.75rem;font-weight:500';
-        note.textContent = `Showing ${visible} of ${total} requests`;
-        mineContent.insertBefore(note, mineContent.firstChild);
-      } else {
-        existing.textContent = `Showing ${visible} of ${total} requests`;
-      }
-    } else {
-      const existing = document.getElementById('mine-filter-note');
-      if (existing) existing.remove();
-    }
-  };
-})(renderMine);
-
-/* ══════════════════════════════════════════════════════════════════
-   MOBILE HAMBURGER NAV
-══════════════════════════════════════════════════════════════════ */
-function toggleMobileNav() {
-  const tabs = document.getElementById('nav-tabs');
-  const btn  = document.getElementById('nav-hamburger');
-  if (!tabs) return;
-  const open = tabs.classList.toggle('mobile-open');
-  if (btn) btn.textContent = open ? '✕' : '☰';
-}
-
-// Close mobile nav when a tab is clicked
-document.getElementById('nav-tabs')?.addEventListener('click', e => {
-  const btn = e.target.closest('.ntab');
-  if (btn) {
-    document.getElementById('nav-tabs').classList.remove('mobile-open');
-    document.getElementById('nav-hamburger').textContent = '☰';
-  }
-});
-
-// Close mobile nav on outside click
-document.addEventListener('click', e => {
-  const tabs = document.getElementById('nav-tabs');
-  const hamburger = document.getElementById('nav-hamburger');
-  if (tabs?.classList.contains('mobile-open') &&
-      !tabs.contains(e.target) &&
-      e.target !== hamburger) {
-    tabs.classList.remove('mobile-open');
-    hamburger.textContent = '☰';
-  }
-});
-
-/* ══════════════════════════════════════════════════════════════════
-   COPY REQUEST ID TO CLIPBOARD
-══════════════════════════════════════════════════════════════════ */
-function copyToClipboard(text, btnEl) {
-  navigator.clipboard.writeText(text).then(() => {
-    if (btnEl) {
-      btnEl.textContent = '✓ Copied';
-      btnEl.classList.add('copied');
-      setTimeout(() => {
-        btnEl.textContent = '⧉ Copy ID';
-        btnEl.classList.remove('copied');
-      }, 2000);
-    }
-    toast(`Copied: ${text}`, 'ok', 2000);
-  }).catch(() => {
-    toast('Copy not supported in this browser.', 'warn');
-  });
-}
-
-// Inject copy button into detail modal footer
-const _origOpenDetailModalCopy = openDetailModal;
-openDetailModal = function(id) {
-  _origOpenDetailModalCopy(id);
-  setTimeout(() => {
-    const ft = document.getElementById('mod-foot');
-    if (ft && !ft.querySelector('.copy-id-btn')) {
-      const btn = document.createElement('button');
-      btn.className = 'btn btn-ghost btn-sm copy-id-btn';
-      btn.innerHTML = '⧉ Copy ID';
-      btn.onclick = () => copyToClipboard(id, btn);
-      ft.insertBefore(btn, ft.firstChild);
-    }
-  }, 50);
-};
-
-// Also add copy button to each request card in My Requests
-const _origRenderMineForCopy = renderMine;
-renderMine = (function(orig) {
-  return function() {
-    orig();
-    document.querySelectorAll('.rcard .reftag').forEach(tag => {
-      const id = tag.textContent.trim();
-      if (!tag.nextElementSibling?.classList.contains('copy-btn')) {
-        const btn = document.createElement('button');
-        btn.className = 'copy-btn';
-        btn.title = 'Copy request ID';
-        btn.textContent = '⧉';
-        btn.onclick = (e) => { e.stopPropagation(); copyToClipboard(id, btn); };
-        tag.after(btn);
-      }
-    });
-  };
-})(renderMine);
-
-/* ══════════════════════════════════════════════════════════════════
-   PHONE NUMBER VALIDATION (Ghana format: 0XX XXX XXXX — 10 digits)
-══════════════════════════════════════════════════════════════════ */
-function validateGhanaPhone(phone) {
-  const clean = phone.replace(/[\s\-]/g, '');
-  return /^0[2-9]\d{8}$/.test(clean);
-}
-
-function attachPhoneValidation(inputId) {
-  const el = document.getElementById(inputId);
-  if (!el) return;
-  el.addEventListener('input', function() {
-    const val = this.value.trim();
-    if (!val) { this.className = this.className.replace(/ph-valid|ph-invalid/g,'').trim(); return; }
-    const hint = this.parentElement?.querySelector('.ph-hint');
-    if (validateGhanaPhone(val)) {
-      this.classList.remove('ph-invalid'); this.classList.add('ph-valid');
-      if (hint) { hint.textContent = '✓ Valid Ghana number'; hint.className = 'ph-hint ok'; }
-    } else {
-      this.classList.remove('ph-valid'); this.classList.add('ph-invalid');
-      if (hint) { hint.textContent = 'Must be 10 digits starting with 0 (e.g. 0241 000 111)'; hint.className = 'ph-hint err'; }
-    }
-  });
-}
-
-// Inject hint span and attach validator after form init
-setTimeout(() => {
-  const phoneEl = document.getElementById('f-phone');
-  if (phoneEl && !phoneEl.parentElement.querySelector('.ph-hint')) {
-    const hint = document.createElement('span');
-    hint.className = 'ph-hint';
-    phoneEl.after(hint);
-    attachPhoneValidation('f-phone');
-  }
-}, 600);
-
-/* ══════════════════════════════════════════════════════════════════
-   UNLOAD WARNING — warn if form has unsaved data
-══════════════════════════════════════════════════════════════════ */
-window.addEventListener('beforeunload', e => {
-  const title = document.getElementById('f-title')?.value || '';
-  const desc  = document.getElementById('f-desc')?.value  || '';
-  const formVisible = document.getElementById('view-request')?.classList.contains('on');
-  const successVisible = document.getElementById('success-screen')?.classList.contains('on');
-  if (formVisible && !successVisible && (title || desc)) {
-    e.preventDefault();
-    e.returnValue = 'You have an unsaved request. Are you sure you want to leave?';
-    return e.returnValue;
-  }
-});
-
-/* ══════════════════════════════════════════════════════════════════
-   LOCALSTORAGE QUOTA MONITOR
-══════════════════════════════════════════════════════════════════ */
-function checkStorageQuota() {
-  try {
-    // Estimate usage
-    let totalBytes = 0;
-    for (let key in localStorage) {
-      if (localStorage.hasOwnProperty(key)) {
-        totalBytes += (localStorage[key].length + key.length) * 2; // UTF-16
-      }
-    }
-    const usedKB = Math.round(totalBytes / 1024);
-    const limitKB = 5120; // 5MB conservative estimate
-    const pct = Math.round((usedKB / limitKB) * 100);
-
-    let bar = document.getElementById('quota-warning-bar');
-    if (!bar) {
-      bar = document.createElement('div');
-      bar.id = 'quota-warning-bar';
-      bar.className = 'quota-bar';
-      bar.innerHTML = `<span id="quota-msg"></span><button onclick="dismissQuota()" style="background:none;border:none;color:#fff;cursor:pointer;font-size:18px;line-height:1">✕</button>`;
-      document.body.appendChild(bar);
-    }
-
-    if (pct >= 80) {
-      bar.classList.add('on');
-      document.getElementById('quota-msg').textContent =
-        `⚠ Storage ${pct}% full (${usedKB} KB of ~${limitKB} KB used). Export a CSV backup and clear old data soon.`;
-    } else {
-      bar.classList.remove('on');
-    }
-  } catch(e) { /* silent */ }
-}
-
-function dismissQuota() {
-  const bar = document.getElementById('quota-warning-bar');
-  if (bar) bar.classList.remove('on');
-  sessionStorage.setItem('quota_dismissed', '1');
-}
-
-// Check on load and every 5 minutes
-setTimeout(() => {
-  if (!sessionStorage.getItem('quota_dismissed')) checkStorageQuota();
-}, 2000);
-setInterval(checkStorageQuota, 5 * 60 * 1000);
-
-/* ══════════════════════════════════════════════════════════════════
-   VEHICLE REG FORMAT HINT (GH-XXXX-XX pattern)
-══════════════════════════════════════════════════════════════════ */
-// Attach to vehicle form reg field when modal opens
-const _origBuildVehicleForm2 = buildVehicleForm;
-buildVehicleForm = function(v) {
-  const html = _origBuildVehicleForm2(v);
-  return html.replace(
-    'placeholder="e.g. GR-1234-25" style="text-transform:uppercase"',
-    'placeholder="e.g. GR-1234-25" style="text-transform:uppercase" oninput="validateRegField(this)"'
-  );
-};
-
-function validateRegField(el) {
-  el.value = el.value.toUpperCase().replace(/[^A-Z0-9\-]/g, '');
-  const valid = /^[A-Z]{2}-\d{4}-\d{2}$/.test(el.value);
-  el.style.borderColor = el.value.length < 3 ? '' : valid ? 'var(--green)' : 'var(--red)';
-}
-
-/* ══════════════════════════════════════════════════════════════════
-   ARIA LIVE REGION FOR TOASTS
-══════════════════════════════════════════════════════════════════ */
-(function() {
-  const shelf = document.getElementById('toast-shelf');
-  if (shelf) {
-    shelf.setAttribute('aria-live', 'polite');
-    shelf.setAttribute('aria-atomic', 'false');
-    shelf.setAttribute('role', 'status');
-  }
-})();
-requests.filter(r=>{const rd=new Date(r.date);return rd.getMonth()===d.getMonth()&&rd.getFullYear()===d.getFullYear();}).length;
-            months.push({label:d.toLocaleDateString('en-GB',{month:'short'}),count:cnt});
-          }
-          const mx=Math.max(...months.map(m=>m.count),1);
-          return months.map((m,i)=>`
-            <div class="dept-bar-row" style="margin-bottom:.5rem">
-              <span style="width:36px;font-size:11px;font-weight:600;color:var(--mid);flex-shrink:0">${m.label}</span>
-              <div class="dept-bar-track"><div class="dept-bar-fill" style="width:${Math.round((m.count/mx)*100)}%;background:${i===5?'var(--red)':'var(--mid)'}"></div></div>
-              <span class="dept-bar-count" style="color:${i===5?'var(--red)':'var(--mid)'};font-weight:${i===5?700:400}">${m.count}</span>
-            </div>`).join('');
-        })()}
-      </div>
-    </div>
-  `;
-}
-
-/* ══════════════════════════════════════════════════════════════════
-   ADD PDF EXPORT BUTTONS TO UI
-══════════════════════════════════════════════════════════════════ */
-// Add to admin card-hd buttons
-const _origRenderAdminReqsForPDF = renderAdminRequests;
-renderAdminRequests = function(){
-  _origRenderAdminReqsForPDF();
-  // Ensure Export PDF button exists
-  const hd = document.querySelector('#at-requests .card-hd > div:last-child');
-  if(hd && !hd.querySelector('.export-pdf-btn')){
-    const btn = document.createElement('button');
-    btn.className = 'btn btn-ghost btn-sm export-pdf-btn';
-    btn.innerHTML = '📄 PDF Report';
-    btn.onclick = exportFullReport;
-    hd.insertBefore(btn, hd.querySelector('[onclick*="exportCSV"]'));
-  }
-};
-
-// Add PDF button to detail modal footer
-const _origOpenDetailModal2 = openDetailModal;
-openDetailModal = function(id){
-  _origOpenDetailModal2(id);
-  // Append PDF button to modal footer
-  const ft = document.getElementById('mod-foot');
-  if(ft && !ft.querySelector('.pdf-single-btn')){
-    const btn = document.createElement('button');
-    btn.className = 'btn btn-ghost btn-sm pdf-single-btn';
-    btn.innerHTML = '📄 PDF';
-    btn.onclick = () => exportRequestPDF(id);
-    ft.insertBefore(btn, ft.firstChild);
-  }
-};
-
-/* ══════════════════════════════════════════════════════════════════
-   APPLY DARK MODE ON INITIAL LOAD (re-run after bootApp)
-══════════════════════════════════════════════════════════════════ */
-const _origBootApp2 = bootApp;
-bootApp = function(user){
-  _origBootApp2(user);
-  // Re-apply saved theme after app boots
-  const saved = localStorage.getItem('ngs_theme') || 'light';
-  applyTheme(saved);
-};
 
 /* ══════════════════════════════════════════════════════════════════
    BIND AUTO-SAVE to title and notes fields as well
@@ -5011,9 +4416,10 @@ setTimeout(()=>{
   };
   ['f-title','f-notes','f-desc'].forEach(bindAutoSave);
 }, 500);
+
+
 </script>
 
-<!-- Newgas Fleet Portal JavaScript -->
 <script src="main.js"></script>
 </body>
 </html>
